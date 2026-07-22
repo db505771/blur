@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clean Rounded Liquid Blur</title>
+  <title>Polished Glass</title>
   <style>
     html, body {
       margin: 0;
@@ -14,37 +14,30 @@
       overflow: hidden;
     }
 
-    .clean-rounded-blur {
+    .polished-glass {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
 
       /* Smooth rounded corners */
-      border-radius: 24px; 
-      
-      /* Clips the blur and tint cleanly inside the curve */
+      border-radius: 28px; 
       overflow: hidden;
 
-      /* Apple Liquid Glass tint (no outlines or borders) */
-      background: linear-gradient(
-        180deg, 
-        rgba(255, 255, 255, 0.08) 0%, 
-        rgba(0, 0, 0, 0.25) 100%
-      );
+      /* Light translucent tint - lets background colors pop without turning muddy */
+      background: rgba(255, 255, 255, 0.12);
 
-      /* High blur + Saturation boost */
-      backdrop-filter: blur(35px) saturate(180%);
-      -webkit-backdrop-filter: blur(35px) saturate(180%);
+      /* Strong blur + high saturation for rich color passthrough */
+      backdrop-filter: blur(30px) saturate(210%);
+      -webkit-backdrop-filter: blur(30px) saturate(210%);
 
-      /* NO borders or box shadows = No visible corner lines! */
-      border: none;
-      box-shadow: none;
+      /* Soft shadow so the card floats cleanly above app content */
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
     }
   </style>
 </head>
 <body>
 
-  <div class="clean-rounded-blur"></div>
+  <div class="polished-glass"></div>
 
 </body>
 </html>
