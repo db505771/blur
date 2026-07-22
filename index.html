@@ -3,80 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Liquid Glass Button</title>
+  <title>Full Screen Liquid Glass</title>
   <style>
+    /* Reset all margins and force full screen WebView bounds */
     html, body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      background: transparent;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: transparent !important;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    /* LIQUID GLASS BUTTON */
-    .liquid-glass-button {
+    /* FULL SCREEN LIQUID GLASS ELEMENT */
+    .liquid-glass-fullscreen {
+      /* Force it to fill the exact dimensions of the WebView */
       width: 100%;
       height: 100%;
       box-sizing: border-box;
 
-      /* Reset native button styles */
+      /* Reset button default styles */
       appearance: none;
       -webkit-appearance: none;
+      border: none;
       outline: none;
+      padding: 0;
+      margin: 0;
+      display: block;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
 
-      /* Pill shape */
-      border-radius: 999px;
+      /* FLAT CORNERS - Prevents the container from clipping into a circle */
+      border-radius: 0px; 
 
-      /* 1. TRANSLUCENT SHEEN (Replaces flat solid dark fill) */
+      /* Translucent glass sheen */
       background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.18) 0%,
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(0, 0, 0, 0.15) 100%
+        180deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(0, 0, 0, 0.2) 100%
       );
 
-      /* 2. HIGH BACKDROP BLUR & SATURATION */
+      /* Liquid Glass Backdrop Blur & Saturation */
       backdrop-filter: blur(30px) saturate(200%);
       -webkit-backdrop-filter: blur(30px) saturate(200%);
 
-      /* 3. REFRACTIVE GLASS EDGE (Crucial for the glass rim) */
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      /* Edge highlight rim along top edge */
+      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
 
-      /* 4. INNER SPECULAR HIGHLIGHT (Top light catch + bottom shadow) */
-      box-shadow: 
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.45),
-        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25),
-        0 8px 20px rgba(0, 0, 0, 0.25);
-
-      /* Tactile feedback on press */
-      transition: transform 0.15s ease, background 0.15s ease;
+      /* Smooth tap feedback */
+      transition: background 0.15s ease, transform 0.15s ease;
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* PRESS ANIMATION */
-    .liquid-glass-button:active {
-      transform: scale(0.97);
+    /* PRESS STATE */
+    .liquid-glass-fullscreen:active {
       background: linear-gradient(
-        135deg,
+        180deg,
         rgba(255, 255, 255, 0.25) 0%,
-        rgba(255, 255, 255, 0.1) 100%
+        rgba(0, 0, 0, 0.25) 100%
       );
     }
   </style>
 </head>
 <body>
 
-  <button class="liquid-glass-button" type="button">
-    </button>
+  <button class="liquid-glass-fullscreen" type="button"></button>
 
 </body>
 </html>
