@@ -3,50 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blurred Background Effect</title>
+  <title>WebView Blur Overlay</title>
   <style>
-    /* Reset and page styling with a background image */
-    body {
+    /* Make the page background transparent */
+    html, body {
       margin: 0;
       padding: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      /* Colorful background image so the blur is visible */
-      background: url('https://picsum.photos/id/1015/1200/800') no-repeat center center/cover;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      overflow: hidden;
     }
 
-    /* The glass/blurred container */
-    .blur-card {
-      padding: 2.5rem;
-      border-radius: 16px;
-      max-width: 400px;
-      color: #ffffff;
-      text-align: center;
+    /* Fullscreen overlay that blurs everything underneath */
+    .blur-overlay {
+      width: 100%;
+      height: 100%;
 
-      /* KEY BLUR EFFECT PROPERTIES */
-      background: rgba(255, 255, 255, 0.15); /* Semi-transparent background */
-      backdrop-filter: blur(10px);            /* Blurs what is directly behind this element */
-      -webkit-backdrop-filter: blur(10px);    /* Safari support */
+      /* Semi-transparent tint to make the blur effect visible */
+      background: rgba(255, 255, 255, 0.15); 
 
-      /* Subtle border & shadow for depth */
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    }
-
-    .blur-card h2 {
-      margin-top: 0;
+      /* Blur filter applied to the underlying WebView content */
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
     }
   </style>
 </head>
 <body>
 
-  <div class="blur-card">
-    <h2>Glassmorphism Card</h2>
-    <p>This box blurs whatever image or background content is sitting directly behind it.</p>
-  </div>
+  <div class="blur-overlay"></div>
 
 </body>
 </html>
