@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dark Mode Rounded Blur Overlay</title>
+  <title>Floating Dark Blur Card</title>
   <style>
-    /* Ensure the body fills 100% of the viewport with no extra padding */
+    /* Fill viewport while keeping canvas completely clear */
     html, body {
       margin: 0;
       padding: 0;
@@ -13,32 +13,44 @@
       height: 100%;
       background-color: transparent;
       overflow: hidden;
+      box-sizing: border-box;
     }
 
-    /* Fullscreen dark-mode blur container */
-    .blur-overlay {
+    /* Padding around body creates room for rounded corners to stand out */
+    body {
+      padding: 12px; 
+      display: flex;
+    }
+
+    /* Floating Dark Glass Card */
+    .blur-card {
       width: 100%;
       height: 100%;
-      box-sizing: border-box;
 
-      /* Rounded corners directly on the full-size view */
-      border-radius: 20px; 
+      /* Rounding the corners */
+      border-radius: 24px;
 
-      /* Dark mode semi-transparent tint */
-      background: rgba(0, 0, 0, 0.4); 
+      /* CLIPS the blur filter to the rounded corners! */
+      overflow: hidden;
+
+      /* Dark mode semi-transparent background */
+      background: rgba(0, 0, 0, 0.45);
 
       /* Backdrop blur filters */
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
 
-      /* Dark mode border highlight around the edges */
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      /* Subtle highlight border to make edges pop */
+      border: 1px solid rgba(255, 255, 255, 0.12);
+
+      /* Subtle shadow underneath */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
 <body>
 
-  <div class="blur-overlay"></div>
+  <div class="blur-card"></div>
 
 </body>
 </html>
