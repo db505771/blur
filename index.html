@@ -2,49 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clean Rounded Liquid Blur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Liquid Glass Button</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background: transparent;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .clean-rounded-blur {
+    /* LIQUID GLASS BUTTON */
+    .liquid-glass-button {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
 
-      /* Smooth rounded corners */
-      border-radius: 24px; 
-      
-      /* Clips the blur and tint cleanly inside the curve */
-      overflow: hidden;
+      /* Reset native button styles */
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
 
-      /* Apple Liquid Glass tint (no outlines or borders) */
+      /* Pill shape */
+      border-radius: 999px;
+
+      /* 1. TRANSLUCENT SHEEN (Replaces flat solid dark fill) */
       background: linear-gradient(
-        180deg, 
-        rgba(255, 255, 255, 0.08) 0%, 
-        rgba(0, 0, 0, 0.25) 100%
+        135deg,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(0, 0, 0, 0.15) 100%
       );
 
-      /* High blur + Saturation boost */
-      backdrop-filter: blur(35px) saturate(180%);
-      -webkit-backdrop-filter: blur(35px) saturate(180%);
+      /* 2. HIGH BACKDROP BLUR & SATURATION */
+      backdrop-filter: blur(30px) saturate(200%);
+      -webkit-backdrop-filter: blur(30px) saturate(200%);
 
-      /* NO borders or box shadows = No visible corner lines! */
-      border: none;
-      box-shadow: none;
+      /* 3. REFRACTIVE GLASS EDGE (Crucial for the glass rim) */
+      border: 1px solid rgba(255, 255, 255, 0.25);
+
+      /* 4. INNER SPECULAR HIGHLIGHT (Top light catch + bottom shadow) */
+      box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25),
+        0 8px 20px rgba(0, 0, 0, 0.25);
+
+      /* Tactile feedback on press */
+      transition: transform 0.15s ease, background 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* PRESS ANIMATION */
+    .liquid-glass-button:active {
+      transform: scale(0.97);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.1) 100%
+      );
     }
   </style>
 </head>
 <body>
 
-  <div class="clean-rounded-blur"></div>
+  <button class="liquid-glass-button" type="button">
+    </button>
 
 </body>
 </html>
