@@ -3,54 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Floating Dark Blur Card</title>
+  <title>Apple Liquid Glass Overlay</title>
   <style>
-    /* Fill viewport while keeping canvas completely clear */
+    /* Ensure page is transparent for WebView */
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      background-color: transparent;
+      background: transparent;
       overflow: hidden;
-      box-sizing: border-box;
     }
 
-    /* Padding around body creates room for rounded corners to stand out */
-    body {
-      padding: 12px; 
-      display: flex;
-    }
-
-    /* Floating Dark Glass Card */
-    .blur-card {
+    /* Apple-style Liquid Glass Container */
+    .liquid-glass {
       width: 100%;
       height: 100%;
+      box-sizing: border-box;
 
-      /* Rounding the corners */
-      border-radius: 24px;
+      /* Smooth iOS squircle-style corner rounding */
+      border-radius: 28px;
 
-      /* CLIPS the blur filter to the rounded corners! */
-      overflow: hidden;
+      /* Multi-layer liquid glass appearance:
+         1. Light specular gradient across the glass surface
+         2. Soft dark translucent base */
+      background: 
+        linear-gradient(
+          135deg, 
+          rgba(255, 255, 255, 0.12) 0%, 
+          rgba(255, 255, 255, 0.03) 40%, 
+          rgba(0, 0, 0, 0.25) 100%
+        );
 
-      /* Dark mode semi-transparent background */
-      background: rgba(0, 0, 0, 0.45);
+      /* High blur + Saturation boost creates Apple's deep glass look */
+      backdrop-filter: blur(35px) saturate(180%);
+      -webkit-backdrop-filter: blur(35px) saturate(180%);
 
-      /* Backdrop blur filters */
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
+      /* Glass edge refraction highlights */
+      border: 1px solid rgba(255, 255, 255, 0.18);
 
-      /* Subtle highlight border to make edges pop */
-      border: 1px solid rgba(255, 255, 255, 0.12);
-
-      /* Subtle shadow underneath */
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      /* Inner glass highlight rim & subtle outer glow */
+      box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2),
+        0 12px 32px rgba(0, 0, 0, 0.35);
     }
   </style>
 </head>
 <body>
 
-  <div class="blur-card"></div>
+  <div class="liquid-glass"></div>
 
 </body>
 </html>
