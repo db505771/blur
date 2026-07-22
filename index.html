@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seamless Liquid Blur</title>
+  <title>Clean Rounded Liquid Blur</title>
   <style>
     html, body {
       margin: 0;
@@ -14,26 +14,29 @@
       overflow: hidden;
     }
 
-    .pure-liquid-blur {
+    .clean-rounded-blur {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
 
-      /* Flat edges, no rounded corners */
-      border-radius: 0; 
+      /* Smooth rounded corners */
+      border-radius: 24px; 
+      
+      /* Clips the blur and tint cleanly inside the curve */
+      overflow: hidden;
 
-      /* Soft specular tint without hard edges */
+      /* Apple Liquid Glass tint (no outlines or borders) */
       background: linear-gradient(
         180deg, 
         rgba(255, 255, 255, 0.08) 0%, 
-        rgba(0, 0, 0, 0.2) 100%
+        rgba(0, 0, 0, 0.25) 100%
       );
 
       /* High blur + Saturation boost */
       backdrop-filter: blur(35px) saturate(180%);
       -webkit-backdrop-filter: blur(35px) saturate(180%);
 
-      /* NO borders or shadows -> eliminates the box frame completely */
+      /* NO borders or box shadows = No visible corner lines! */
       border: none;
       box-shadow: none;
     }
@@ -41,7 +44,7 @@
 </head>
 <body>
 
-  <div class="pure-liquid-blur"></div>
+  <div class="clean-rounded-blur"></div>
 
 </body>
 </html>
