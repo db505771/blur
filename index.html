@@ -3,38 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Semi-Transparent Blue Blur Box</title>
+  <title>Blurred Background Effect</title>
   <style>
+    /* Reset and page styling with a background image */
     body {
       margin: 0;
-      height: 100vh;
+      padding: 0;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      /* Background pattern so you can see the blur & transparency in action */
-      background: linear-gradient(135deg, #1e1e24, #3a3a40);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* Colorful background image so the blur is visible */
+      background: url('https://picsum.photos/id/1015/1200/800') no-repeat center center/cover;
     }
 
-    .blue-blur-box {
-      width: 300px;
-      height: 200px;
+    /* The glass/blurred container */
+    .blur-card {
+      padding: 2.5rem;
       border-radius: 16px;
-      
-      /* Semi-transparent blue color (RGBA: Red, Green, Blue, Alpha/Opacity) */
-      background-color: rgba(0, 122, 255, 0.25); 
-      
-      /* Blur effect behind the element */
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px); /* Safari support */
+      max-width: 400px;
+      color: #ffffff;
+      text-align: center;
 
-      /* Subtle border to give it a clean edge */
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      /* KEY BLUR EFFECT PROPERTIES */
+      background: rgba(255, 255, 255, 0.15); /* Semi-transparent background */
+      backdrop-filter: blur(10px);            /* Blurs what is directly behind this element */
+      -webkit-backdrop-filter: blur(10px);    /* Safari support */
+
+      /* Subtle border & shadow for depth */
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .blur-card h2 {
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
 
-  <div class="blue-blur-box"></div>
+  <div class="blur-card">
+    <h2>Glassmorphism Card</h2>
+    <p>This box blurs whatever image or background content is sitting directly behind it.</p>
+  </div>
 
 </body>
 </html>
