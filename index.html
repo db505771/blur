@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Full Screen Liquid Glass</title>
+  <title>Liquid Glass Rounded</title>
   <style>
-    /* Reset all margins and force full screen WebView bounds */
     html, body {
       margin: 0 !important;
       padding: 0 !important;
@@ -15,59 +14,61 @@
       overflow: hidden;
     }
 
-    /* FULL SCREEN LIQUID GLASS ELEMENT */
-    .liquid-glass-fullscreen {
-      /* Force it to fill the exact dimensions of the WebView */
+    .liquid-glass-rounded {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
 
-      /* Reset button default styles */
       appearance: none;
       -webkit-appearance: none;
-      border: none;
       outline: none;
       padding: 0;
       margin: 0;
       display: block;
       cursor: pointer;
 
-      /* FLAT CORNERS - Prevents the container from clipping into a circle */
-      border-radius: 0px; 
+      /* FIXED RADIUS: Keeps normal rounded corners instead of forming an oval */
+      border-radius: 28px;
+      overflow: hidden;
 
-      /* Translucent glass sheen */
+      /* Pure Liquid Glass Sheen (No hard inner borders or edge lines) */
       background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.15) 0%,
-        rgba(255, 255, 255, 0.05) 40%,
-        rgba(0, 0, 0, 0.2) 100%
+        135deg,
+        rgba(255, 255, 255, 0.16) 0%,
+        rgba(255, 255, 255, 0.04) 50%,
+        rgba(0, 0, 0, 0.12) 100%
       );
 
       /* Liquid Glass Backdrop Blur & Saturation */
       backdrop-filter: blur(30px) saturate(200%);
       -webkit-backdrop-filter: blur(30px) saturate(200%);
 
-      /* Edge highlight rim along top edge */
-      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+      /* NO BORDER - Completely removes visible outline edges */
+      border: none;
 
-      /* Smooth tap feedback */
-      transition: background 0.15s ease, transform 0.15s ease;
+      /* Subtle ambient drop shadow for depth without hard edge strokes */
+      box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 24px rgba(0, 0, 0, 0.15);
+
+      /* Touch Feedback */
+      transition: transform 0.15s ease, background 0.15s ease;
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* PRESS STATE */
-    .liquid-glass-fullscreen:active {
+    .liquid-glass-rounded:active {
+      transform: scale(0.98);
       background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.25) 0%,
-        rgba(0, 0, 0, 0.25) 100%
+        135deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(0, 0, 0, 0.2) 100%
       );
     }
   </style>
 </head>
 <body>
 
-  <button class="liquid-glass-fullscreen" type="button"></button>
+  <button class="liquid-glass-rounded" type="button"></button>
 
 </body>
 </html>
