@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Liquid Glass Overlay</title>
+  <title>Full Bleed Liquid Glass</title>
   <style>
-    /* Ensure page is transparent for WebView */
     html, body {
       margin: 0;
       padding: 0;
@@ -15,18 +14,15 @@
       overflow: hidden;
     }
 
-    /* Apple-style Liquid Glass Container */
-    .liquid-glass {
+    .liquid-glass-full {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
 
-      /* Smooth iOS squircle-style corner rounding */
-      border-radius: 28px;
+      /* Flat edges so no corner gaps show through */
+      border-radius: 0; 
 
-      /* Multi-layer liquid glass appearance:
-         1. Light specular gradient across the glass surface
-         2. Soft dark translucent base */
+      /* Apple Liquid Glass Surface Gradient */
       background: 
         linear-gradient(
           135deg, 
@@ -35,24 +31,23 @@
           rgba(0, 0, 0, 0.25) 100%
         );
 
-      /* High blur + Saturation boost creates Apple's deep glass look */
+      /* High blur + Saturation boost */
       backdrop-filter: blur(35px) saturate(180%);
       -webkit-backdrop-filter: blur(35px) saturate(180%);
 
-      /* Glass edge refraction highlights */
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      /* Subtile edge highlight rim */
+      border: 1px solid rgba(255, 255, 255, 0.15);
 
-      /* Inner glass highlight rim & subtle outer glow */
+      /* Inner specular highlight */
       box-shadow: 
         inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
-        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2),
-        0 12px 32px rgba(0, 0, 0, 0.35);
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
 
-  <div class="liquid-glass"></div>
+  <div class="liquid-glass-full"></div>
 
 </body>
 </html>
