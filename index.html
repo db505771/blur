@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebView Blur Overlay</title>
+  <title>Rounded WebView Blur</title>
   <style>
-    /* Make the page background transparent */
+    /* Ensure the HTML/Body canvas is completely transparent and fills the viewport */
     html, body {
       margin: 0;
       padding: 0;
@@ -13,19 +13,31 @@
       height: 100%;
       background-color: transparent;
       overflow: hidden;
+      box-sizing: border-box;
     }
 
-    /* Fullscreen overlay that blurs everything underneath */
+    /* Container creates spacing from the edge so the rounded corners are visible */
+    body {
+      padding: 16px; /* Adjust this value to change distance from screen edges */
+    }
+
+    /* The rounded, blurred element */
     .blur-overlay {
       width: 100%;
       height: 100%;
 
-      /* Semi-transparent tint to make the blur effect visible */
-      background: rgba(255, 255, 255, 0.15); 
+      /* Border radius for rounded corners */
+      border-radius: 24px; /* Adjust rounding amount here */
 
-      /* Blur filter applied to the underlying WebView content */
+      /* Semi-transparent background tint */
+      background: rgba(255, 255, 255, 0.2); 
+
+      /* Backdrop blur filters */
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
+
+      /* Optional: subtle border to define the rounded edge nicely */
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
   </style>
 </head>
