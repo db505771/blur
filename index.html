@@ -1,10 +1,9 @@
-<!--Developer: Abdughafur-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Optical Liquid Glass</title>
+  <title>Deep Purple App Panel</title>
   <style>
     html, body {
       margin: 0 !important;
@@ -13,9 +12,10 @@
       height: 100% !important;
       background: transparent !important;
       overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    .liquid-glass {
+    .app-card {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
@@ -23,63 +23,77 @@
       appearance: none;
       -webkit-appearance: none;
       outline: none;
-      padding: 0;
+      padding: 20px;
       margin: 0;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       cursor: pointer;
 
-      /* Smooth rounded corners */
-      border-radius: 28px;
+      /* Rounded corners matching modern app UI */
+      border-radius: 24px;
       overflow: hidden;
 
       /* WebKit Mask Clip for Adalo WebViews */
       -webkit-mask-image: -webkit-radial-gradient(white, black);
 
-      /* OPTICAL CLEAR GLASS: Very low background tint so it doesn't look milky/frosted */
-      background: rgba(255, 255, 255, 0.04);
+      /* Deep Purple Translucent Glass Base */
+      background: rgba(45, 20, 75, 0.45);
 
-      /* OPTICAL BLUR + SVG DISTORTION: 
-         This warps and bends the background imagery like a physical lens 
-         rather than spreading a milky white matte filter over it. */
-      backdrop-filter: url(#liquid-glass-distortion) blur(12px) saturate(180%);
-      -webkit-backdrop-filter: url(#liquid-glass-distortion) blur(12px) saturate(180%);
+      /* Optical Blur + SVG Water/Lens Refraction */
+      backdrop-filter: url(#liquid-glass-distortion) blur(14px) saturate(180%);
+      -webkit-backdrop-filter: url(#liquid-glass-distortion) blur(14px) saturate(180%);
 
-      border: none;
+      /* Thin violet-tinted rim highlight */
+      border: 1px solid rgba(190, 140, 255, 0.2);
 
-      /* Sharp specular highlights to define the glass edge */
+      /* Deep shadow and inner specular top highlight */
       box-shadow: 
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.6),
-        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.15),
-        0 8px 24px rgba(0, 0, 0, 0.2);
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+        0 10px 30px rgba(15, 5, 30, 0.4);
 
-      /* Touch Feedback */
+      color: #ffffff;
       transition: transform 0.15s ease, background 0.15s ease;
       -webkit-tap-highlight-color: transparent;
     }
 
-    .liquid-glass:active {
+    .app-card:active {
       transform: scale(0.98);
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(55, 25, 90, 0.6);
+    }
+
+    .card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 4px;
+    }
+
+    .card-metric {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Optimized SVG Distortion Filter for Clean Optical Warp -->
+  <!-- Hidden SVG Distortion Filter for Clean Optical Warp -->
   <svg width="0" height="0" style="position:absolute">
     <defs>
       <filter id="liquid-glass-distortion" x="0%" y="0%" width="100%" height="100%">
-        <!-- Fine turbulence to create water/lens ripples -->
         <feTurbulence type="fractalNoise" baseFrequency="0.015 0.015" numOctaves="2" seed="42" result="noise" />
-        <!-- Low blur on the noise map so the warp lines stay sharp and defined -->
         <feGaussianBlur in="noise" stdDeviation="1" result="blurred" />
-        <!-- Displacement map that physically shifts the background pixels -->
-        <feDisplacementMap in="SourceGraphic" in2="blurred" scale="40" xChannelSelector="R" yChannelSelector="G" />
+        <feDisplacementMap in="SourceGraphic" in2="blurred" scale="30" xChannelSelector="R" yChannelSelector="G" />
       </filter>
     </defs>
   </svg>
 
-  <button class="liquid-glass" type="button" onclick="buttonPressed()"></button>
+  <button class="app-card" type="button" onclick="buttonPressed()">
+    <div class="card-title">Total Time</div>
+    <div class="card-metric">1010h 3m</div>
+  </button>
 
   <script>
     function buttonPressed() {
