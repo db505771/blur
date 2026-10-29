@@ -1,9 +1,10 @@
+<!--Developer: Abdughafur-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Deep Purple App Panel</title>
+  <title>Liquid Glass - Working Blur</title>
   <style>
     html, body {
       margin: 0 !important;
@@ -15,7 +16,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    .app-card {
+    .liquid-glass {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
@@ -23,77 +24,64 @@
       appearance: none;
       -webkit-appearance: none;
       outline: none;
-      padding: 20px;
+      padding: 0;
       margin: 0;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
       cursor: pointer;
 
-      /* Rounded corners matching modern app UI */
+      /* Rounded corners */
       border-radius: 24px;
       overflow: hidden;
 
-      /* WebKit Mask Clip for Adalo WebViews */
+      /* WEBKIT MASK FIX FOR ADALO (Prevents square gray artifacts) */
       -webkit-mask-image: -webkit-radial-gradient(white, black);
 
-      /* Deep Purple Translucent Glass Base */
-      background: rgba(45, 20, 75, 0.45);
+      /* CLEAR GLASS BASE (Very light tint so it doesn't look milky/frosted) */
+      background: rgba(255, 255, 255, 0.08);
 
-      /* Optical Blur + SVG Water/Lens Refraction */
-      backdrop-filter: url(#liquid-glass-distortion) blur(14px) saturate(180%);
-      -webkit-backdrop-filter: url(#liquid-glass-distortion) blur(14px) saturate(180%);
+      /* NATIVE WEBVIEW BACKDROP BLUR (guaranteed to render cleanly in iOS/Adalo) */
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
 
-      /* Thin violet-tinted rim highlight */
-      border: 1px solid rgba(190, 140, 255, 0.2);
+      /* SVG REFRACTION WARP (Applied directly to the element filter stack) */
+      filter: url(#liquid-glass-distortion);
+      -webkit-filter: url(#liquid-glass-distortion);
 
-      /* Deep shadow and inner specular top highlight */
+      /* Rim highlight border */
+      border: 1px solid rgba(255, 255, 255, 0.2);
+
+      /* Specular rim lighting */
       box-shadow: 
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
-        0 10px 30px rgba(15, 5, 30, 0.4);
+        inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.4),
+        0 8px 24px rgba(0, 0, 0, 0.25);
 
-      color: #ffffff;
       transition: transform 0.15s ease, background 0.15s ease;
       -webkit-tap-highlight-color: transparent;
     }
 
-    .app-card:active {
+    .liquid-glass:active {
       transform: scale(0.98);
-      background: rgba(55, 25, 90, 0.6);
-    }
-
-    .card-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 4px;
-    }
-
-    .card-metric {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      background: rgba(255, 255, 255, 0.15);
     }
   </style>
 </head>
 <body>
 
-  <!-- Hidden SVG Distortion Filter for Clean Optical Warp -->
+  <!-- Hidden SVG Distortion Filter -->
   <svg width="0" height="0" style="position:absolute">
     <defs>
       <filter id="liquid-glass-distortion" x="0%" y="0%" width="100%" height="100%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.015 0.015" numOctaves="2" seed="42" result="noise" />
-        <feGaussianBlur in="noise" stdDeviation="1" result="blurred" />
-        <feDisplacementMap in="SourceGraphic" in2="blurred" scale="30" xChannelSelector="R" yChannelSelector="G" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves="1" seed="42" result="noise" />
+        <feGaussianBlur in="noise" stdDeviation="0.8" result="blurred" />
+        <feDisplacementMap in="SourceGraphic" in2="blurred" scale="18" xChannelSelector="R" yChannelSelector="G" />
       </filter>
     </defs>
   </svg>
 
-  <button class="app-card" type="button" onclick="buttonPressed()">
-    <div class="card-title">Total Time</div>
-    <div class="card-metric">1010h 3m</div>
-  </button>
+  <button class="liquid-glass" type="button" onclick="buttonPressed()"></button>
 
   <script>
     function buttonPressed() {
