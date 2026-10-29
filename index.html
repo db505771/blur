@@ -38,18 +38,18 @@ html, body {
 
   /* almost clear body: glass is see-through, the edges do the work */
   background: linear-gradient(160deg,
-    rgba(255,255,255,.025) 0%,
+    rgba(255,255,255,.03) 0%,
     rgba(255,255,255,0) 50%,
-    rgba(255,255,255,.02) 100%);
+    rgba(255,255,255,.025) 100%);
 
-  backdrop-filter: blur(4px) saturate(160%);
-  -webkit-backdrop-filter: blur(4px) saturate(160%);
+  backdrop-filter: blur(2px) saturate(115%);
+  -webkit-backdrop-filter: blur(2px) saturate(115%);
 
   /* thin edge light only, no white glow in the middle */
   box-shadow:
-    inset 0 0 0 .5px rgba(255,255,255,.1),
-    inset 0 5px 8px -7px rgba(255,255,255,.18),
-    inset 0 -5px 8px -7px rgba(255,255,255,.1);
+    inset 0 4px 6px -5px rgba(255,255,255,.22),
+    inset 0 -4px 6px -5px rgba(255,255,255,.14),
+    inset 0 0 14px -5px rgba(255,255,255,.12);
 
   transition: transform .5s cubic-bezier(.34,1.7,.5,1), background .3s;
   touch-action: manipulation;
@@ -68,8 +68,8 @@ html, body {
   pointer-events: none;
   background: radial-gradient(110% 55% at 20% 0%, rgba(255,255,255,.06), transparent 55%);
   box-shadow:
-    inset 5px 5px 9px -5px rgba(120,220,255,.30),
-    inset -5px -5px 9px -5px rgba(255,130,220,.26);
+    inset 5px 5px 9px -5px rgba(120,220,255,.2),
+    inset -5px -5px 9px -5px rgba(255,130,220,.18);
   transition: opacity .3s;
 }
 
@@ -82,10 +82,10 @@ html, body {
   padding: 1.2px;
   pointer-events: none;
   background: linear-gradient(var(--a),
-    rgba(255,255,255,.8),
-    rgba(255,255,255,.02) 30%,
-    rgba(255,255,255,.02) 62%,
-    rgba(255,255,255,.5));
+    rgba(255,255,255,.9),
+    rgba(255,255,255,.1) 24%,
+    rgba(255,255,255,.1) 68%,
+    rgba(255,255,255,.6));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
@@ -160,7 +160,7 @@ html, body {
     svg.innerHTML = '<filter id="lg" filterUnits="userSpaceOnUse" x="0" y="0" width="' + w + '" height="' + h + '" color-interpolation-filters="sRGB">' +
       '<feImage x="0" y="0" width="' + w + '" height="' + h + '" preserveAspectRatio="none" result="m" href="data:image/svg+xml,' + encodeURIComponent(m) + '"/>' +
       '<feDisplacementMap in="SourceGraphic" in2="m" scale="90" xChannelSelector="R" yChannelSelector="B"/></filter>';
-    b.style.backdropFilter = 'url(#lg) blur(1px) saturate(160%)';
+    b.style.backdropFilter = 'url(#lg) blur(2px) saturate(115%)';
   }
   window.setGlassBackdrop = function (css) {
     document.body.style.setProperty('background', css, 'important');
@@ -170,6 +170,16 @@ html, body {
       if (!ro && window.ResizeObserver) { ro = new ResizeObserver(refract); ro.observe(b); }
     } catch (e) {}
   };
+
+  /* The WebView does seem to see the page background behind the button, so bend it
+     automatically in Chromium. A flat color has nothing to bend: put a gradient,
+     shapes or your content behind the button and the edge will refract it. */
+  if (chromium) {
+    try {
+      refract();
+      if (window.ResizeObserver) { ro = new ResizeObserver(refract); ro.observe(b); }
+    } catch (e) {}
+  }
 })();
 </script>
 </body>
