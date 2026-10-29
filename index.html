@@ -1,92 +1,97 @@
-<!--Developer: Abdughafur-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Liquid Glass - Working Blur</title>
+  <title>Pure Liquid Glass - Black/White Outlines</title>
   <style>
-    html, body {
-      margin: 0 !important;
-      padding: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      background: transparent !important;
-      overflow: hidden;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
 
-    .liquid-glass {
+    html, body {
+      margin: 0;
+      padding: 0;
       width: 100%;
       height: 100%;
-      box-sizing: border-box;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .liquid-glass-pure {
+      position: relative;
+      width: 100%;
+      height: 100%;
 
       appearance: none;
       -webkit-appearance: none;
       outline: none;
       padding: 0;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: block;
       cursor: pointer;
 
-      /* Rounded corners */
-      border-radius: 24px;
-      overflow: hidden;
+      /* Smooth rounded corners */
+      border-radius: 28px;
+      clip-path: inset(0 round 28px);
 
-      /* WEBKIT MASK FIX FOR ADALO (Prevents square gray artifacts) */
-      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      /* LIQUID GLASS SURFACE */
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.32) 0%,
+        rgba(255, 255, 255, 0.06) 40%,
+        rgba(255, 255, 255, 0.18) 100%
+      );
 
-      /* CLEAR GLASS BASE (Very light tint so it doesn't look milky/frosted) */
-      background: rgba(255, 255, 255, 0.08);
+      /* Backdrop blur & saturation boost */
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
 
-      /* NATIVE WEBVIEW BACKDROP BLUR (guaranteed to render cleanly in iOS/Adalo) */
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      /* Standard ambient drop shadow (no edge borders in box-shadow) */
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12);
 
-      /* SVG REFRACTION WARP (Applied directly to the element filter stack) */
-      filter: url(#liquid-glass-distortion);
-      -webkit-filter: url(#liquid-glass-distortion);
-
-      /* Rim highlight border */
-      border: 1px solid rgba(255, 255, 255, 0.2);
-
-      /* Specular rim lighting */
-      box-shadow: 
-        inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.4),
-        0 8px 24px rgba(0, 0, 0, 0.25);
-
-      transition: transform 0.15s ease, background 0.15s ease;
+      /* Smooth touch performance */
+      will-change: transform, background;
+      transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                  background 0.18s ease;
       -webkit-tap-highlight-color: transparent;
     }
 
-    .liquid-glass:active {
-      transform: scale(0.98);
-      background: rgba(255, 255, 255, 0.15);
+    /* Directional Outline Layer: Top/Bottom = White, Left/Right = Black */
+    .liquid-glass-pure::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      pointer-events: none;
+
+      /* 1.5px border outline */
+      border-style: solid;
+      border-width: 1.5px;
+
+      /* Top & Bottom: White | Right & Left: Black */
+      border-color: rgba(255, 255, 255, 0.85) rgba(0, 0, 0, 0.75) rgba(255, 255, 255, 0.6) rgba(0, 0, 0, 0.75);
+
+      /* Inner soft glow for realistic glass rimming */
+      box-shadow: 
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 2px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    /* Active Touch State */
+    .liquid-glass-pure:active {
+      transform: scale(0.97);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.42) 0%,
+        rgba(255, 255, 255, 0.15) 100%
+      );
     }
   </style>
 </head>
 <body>
 
-  <!-- Hidden SVG Distortion Filter -->
-  <svg width="0" height="0" style="position:absolute">
-    <defs>
-      <filter id="liquid-glass-distortion" x="0%" y="0%" width="100%" height="100%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves="1" seed="42" result="noise" />
-        <feGaussianBlur in="noise" stdDeviation="0.8" result="blurred" />
-        <feDisplacementMap in="SourceGraphic" in2="blurred" scale="18" xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </defs>
-  </svg>
+  <button class="liquid-glass-pure" type="button"></button>
 
-  <button class="liquid-glass" type="button" onclick="buttonPressed()"></button>
-
-  <script>
-    function buttonPressed() {
-      // Action logic here
-    }
-  </script>
 </body>
 </html>
